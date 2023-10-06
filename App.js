@@ -1,14 +1,35 @@
-import { StatusBar } from 'expo-status-bar';
+import { useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
+import * as SplashScreen from 'expo-splash-screen';
 import { useTranslation } from './src/use-translation';
-import Button from './src/components/Button';
 import { useCookie } from './src/use-cookie';
+import Button from './src/components/Button';
+
+// Splash 화면 항상 표출
+SplashScreen.preventAutoHideAsync();
 
 export default function App() {
   const { t, locale, setLocale } = useTranslation();
   const { cookieKey } = useCookie();
 
-  if (locale === null) return null;
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  // 준비완료되면 상태값 변경
+  useEffect(() => {
+    if (locale !== null && cookieKey !== '') {
+      setIsLoaded(true);
+    }
+  }, [locale, cookieKey]);
+
+  // 로드 후 스플래시 숨기기
+  useEffect(() => {
+    if (isLoaded) {
+      SplashScreen.hideAsync();
+    }
+  }, [isLoaded]);
+
+  // if (locale === null || cookieKey === '') return null;
 
   return (
     <View style={styles.container}>

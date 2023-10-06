@@ -12,7 +12,9 @@ export const useCookie = () => {
 
   useEffect(() => {
     const randemCookieKey = getRandomCookieKey();
-    setCookieKey(randemCookieKey);
+    setTimeout(() => {
+      setCookieKey(randemCookieKey);
+    }, 2000);
   }, []);
 
   return {

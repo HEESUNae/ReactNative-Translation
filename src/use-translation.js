@@ -1,10 +1,7 @@
-/**
- * 번역 라이브러리 (expo-localization, i18n-js)
- * 로컬 저장 (AsyncStorage)
- */
 import { useEffect, useState } from 'react';
 import { getLocales } from 'expo-localization';
 import { I18n } from 'i18n-js';
+import { format } from 'react-string-format';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // 나라별 언어 셋팅
@@ -53,5 +50,6 @@ export const useTranslation = () => {
     locale,
     setLocale,
     t: (scope) => i18n.t(scope, { locale }),
+    format,
   };
 };
